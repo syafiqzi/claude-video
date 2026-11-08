@@ -13,7 +13,7 @@ fi
 declare -A SFX=(
   [bass_hit]=563 [sweep_small]=166 [sweep_fast]=174 [pop_hard]=2364 [pop_whoosh]=3005
   [impact_zoom]=772 [glitch_scifi]=1022 [tech_slide]=3120 [click_ui]=2568 [confirm]=2867
-  [riser]=790 [coin_prize]=1999 [coins]=1993 [sparkle]=3060 [pop_msg]=2354
+  [sparkle]=3060 [pop_msg]=2354
 )
 for name in "${!SFX[@]}"; do
   id=${SFX[$name]}

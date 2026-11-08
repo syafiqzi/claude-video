@@ -14,6 +14,8 @@ import {
 } from "remotion";
 import {
   CAPTION_CHUNKS,
+  CTA_FROM,
+  DURATION_FRAMES,
   FPS,
   H,
   MUSIC,
@@ -28,7 +30,6 @@ import {
   f,
 } from "./timeline";
 import {
-  CartIcon,
   DISPLAY,
   FONT,
   Flash,
@@ -57,7 +58,6 @@ Promise.all(
 ).then(() => continueRender(fontHandle));
 
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
-const PRICE_SLAM = f(7.12); // 214
 
 // ---------------- Shots ----------------
 const Background: React.FC<{ shot: Shot }> = ({ shot }) => {
@@ -87,13 +87,6 @@ const panelFrame: React.CSSProperties = {
   background: "#000",
 };
 
-const useShake = (globalFrame: number) => {
-  const t = globalFrame - PRICE_SLAM;
-  if (t < 0 || t > 10) return "";
-  const amp = 14 * Math.exp(-t / 3.5);
-  return `translate(${Math.sin(t * 2.7) * amp}px, ${Math.cos(t * 3.3) * amp}px)`;
-};
-
 const CropShot: React.FC<{ shot: Extract<Shot, { kind: "crop" }> }> = ({ shot }) => {
   const frame = useCurrentFrame();
   const len = shot.to - shot.from;
@@ -101,7 +94,7 @@ const CropShot: React.FC<{ shot: Extract<Shot, { kind: "crop" }> }> = ({ shot })
   const enter = interpolate(frame, [0, 6], [1.12, 1], { ...clamp, easing: Easing.out(Easing.cubic) });
   const blur = interpolate(frame, [0, 5], [10, 0], clamp);
   return (
-    <div style={{ ...panelFrame, transform: useShake(shot.from + frame) }}>
+    <div style={panelFrame}>
       <VideoCrop
         src={shot.src}
         region={shot.region}
@@ -290,20 +283,23 @@ const Hook: React.FC = () => {
   return (
     <Centered top={360} style={{ opacity: 1 - out, transform: `translateY(${-out * 80}px)` }}>
       <Pill style={{ fontSize: 30 }}>
-        <RecDot /> DASHCAM 3 KAMERA • 4K
+        <RecDot /> DASHCAM 4K • NIGHT VISION
       </Pill>
       <div
         style={{
           marginTop: 10,
           fontFamily: DISPLAY,
-          fontSize: 190,
-          lineHeight: 0.95,
+          fontSize: 170,
+          lineHeight: 0.92,
           color: YELLOW,
+          textAlign: "center",
           textShadow: bigTextShadow,
           transform: `scale(${pulse}) rotate(-3deg)`,
         }}
       >
-        RM107 JE?!
+        3 KAMERA
+        <br />
+        <span style={{ color: "white" }}>SEKALI GUS!</span>
       </div>
     </Centered>
   );
@@ -384,58 +380,6 @@ const Warranty: React.FC = () => {
   );
 };
 
-const Price: React.FC = () => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const label = usePop(2, 12, 200);
-  const slamAt = PRICE_SLAM - 194;
-  const slam = spring({ frame: frame - slamAt, fps, config: { damping: 9, stiffness: 260, mass: 0.8 } });
-  const scale = interpolate(slam, [0, 1], [1.9, 1]);
-  const shine = interpolate(frame, [slamAt + 6, slamAt + 22], [-30, 130], clamp);
-  const ring = interpolate(frame, [slamAt, slamAt + 14], [0, 1], clamp);
-  return (
-    <Centered top={360}>
-      <div style={{ transform: `scale(${label})` }}>
-        <Pill style={{ fontSize: 36, padding: "14px 28px" }}>HARGA CUMA</Pill>
-      </div>
-      {frame >= slamAt && (
-        <div style={{ position: "relative", marginTop: 6 }}>
-          <div
-            style={{
-              position: "absolute",
-              left: "50%",
-              top: "50%",
-              width: 700,
-              height: 700,
-              marginLeft: -350,
-              marginTop: -350,
-              borderRadius: "50%",
-              border: `10px solid ${YELLOW}`,
-              transform: `scale(${0.3 + ring * 1.1})`,
-              opacity: 1 - ring,
-            }}
-          />
-          <div
-            style={{
-              position: "relative",
-              fontFamily: DISPLAY,
-              fontSize: 280,
-              lineHeight: 0.9,
-              color: YELLOW,
-              textShadow: bigTextShadow,
-              transform: `scale(${scale}) rotate(-4deg)`,
-              opacity: Math.min(1, slam * 3),
-              WebkitMaskImage: `linear-gradient(100deg, #000 ${shine - 12}%, rgba(0,0,0,0.55) ${shine}%, #000 ${shine + 12}%)`,
-            }}
-          >
-            RM107
-          </div>
-        </div>
-      )}
-    </Centered>
-  );
-};
-
 const Cta: React.FC = () => {
   const frame = useCurrentFrame();
   const title = usePop(2, 12, 180);
@@ -476,19 +420,7 @@ const Cta: React.FC = () => {
           boxShadow: "0 18px 50px rgba(255,214,10,0.35)",
         }}
       >
-        <CartIcon size={52} /> TEKAN BEG KUNING
-      </div>
-      <div
-        style={{
-          marginTop: 22,
-          fontFamily: FONT,
-          fontWeight: 700,
-          fontSize: 32,
-          color: "rgba(255,255,255,0.85)",
-          opacity: btn,
-        }}
-      >
-        atau link di bio
+        KLIK LINK DI BAWAH
       </div>
       <svg width={70} height={70} viewBox="0 0 24 24" style={{ marginTop: 18 + bounce, opacity: btn }}>
         <path d="M12 4v14M5 12l7 7 7-7" stroke="white" strokeWidth={2.6} fill="none" strokeLinecap="round" strokeLinejoin="round" />
@@ -565,7 +497,7 @@ export const SafeZoneGuide: React.FC = () => {
       <div style={{ ...zone, right: 0, top: 250, width: 140, height: 1200 }} />
       <div style={{ ...zone, left: 0, top: 250, width: 60, height: 1200 }} />
       <div style={{ ...label, left: 30, top: 200 }}>TOP UI (TikTok/IG)</div>
-      <div style={{ ...label, left: 30, top: 1460 }}>CAPTION / USERNAME / BEG KUNING</div>
+      <div style={{ ...label, left: 30, top: 1460 }}>CAPTION / USERNAME / LINK</div>
       <div style={{ ...label, right: 10, top: 260, width: 120, textAlign: "right" }}>BUTTONS</div>
     </AbsoluteFill>
   );
@@ -588,7 +520,7 @@ const musicVolume = (frame: number) => {
     dist = Math.min(dist, Math.abs(t - s), Math.abs(t - e));
   }
   const v = ducked + (open - ducked) * Math.min(1, dist / 0.15);
-  const fadeOut = interpolate(frame, [282, 297], [1, 0], clamp);
+  const fadeOut = interpolate(frame, [DURATION_FRAMES - 15, DURATION_FRAMES], [1, 0], clamp);
   return v * fadeOut;
 };
 
@@ -639,21 +571,17 @@ export const DashcamPromo: React.FC<{ showSafeZone: boolean }> = ({ showSafeZone
     <Sequence from={114} durationInFrames={30}>
       <NightLabel />
     </Sequence>
-    <Sequence from={f(5.42)} durationInFrames={194 - f(5.42)}>
+    <Sequence from={f(5.42)} durationInFrames={CTA_FROM - f(5.42)}>
       <Warranty />
     </Sequence>
-    <Sequence from={194} durationInFrames={53}>
-      <Price />
-    </Sequence>
-    <Sequence from={247} durationInFrames={50}>
+    <Sequence from={CTA_FROM} durationInFrames={DURATION_FRAMES - CTA_FROM}>
       <Cta />
     </Sequence>
 
     <Captions />
 
     <Flash at={46} max={0.5} />
-    <Flash at={PRICE_SLAM} len={6} max={0.6} />
-    <Flash at={247} max={0.35} />
+    <Flash at={CTA_FROM} max={0.35} />
 
     <SoundTrack />
     {showSafeZone && <SafeZoneGuide />}
