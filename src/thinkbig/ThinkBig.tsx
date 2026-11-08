@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill, Audio, Sequence, continueRender, delayRender, interpolate, staticFile, useCurrentFrame } from "remotion";
 import { Grain } from "./parts";
+import { Subtitles } from "./Subtitles";
 import { Scene1, Scene2, SceneWalls } from "./scenesA";
 import { Scene5, Scene6, Scene7 } from "./scenesB";
 import { C, DURATION_FRAMES, FPS, SCENE, clamp, sec, wt } from "./theme";
@@ -140,6 +141,7 @@ export const ThinkBig: React.FC<{ showSafeZone?: boolean }> = ({ showSafeZone })
         <SceneLayer key={i} {...s} first={i === 0} />
       ))}
       <Grain />
+      <Subtitles />
       {fadeIn > 0 && <AbsoluteFill style={{ background: C.paper, opacity: fadeIn }} />}
       <SoundTrack />
       {showSafeZone && <SafeZone />}

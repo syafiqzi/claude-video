@@ -446,11 +446,6 @@ export const Scene7: React.FC = () => {
           <rect x={bxc - bw / 2} y={byc - bh / 2} width={bw} height={bh} rx={36} fill="none" stroke={C.cream} strokeWidth={6} strokeDasharray="22 16" opacity={1 - burst} />
         </svg>
       )}
-      <Caption at={tBut + 0.2} out={tDisc} top={330} size={58} color={C.cream}>
-        Thinking too small
-        <br />
-        keeps us in the box.
-      </Caption>
       <Caption at={tDest + 0.6} top={250} size={62}>
         Think big about
         <br />
@@ -459,19 +454,7 @@ export const Scene7: React.FC = () => {
       <Caption at={tStay} top={420} size={43} weight={700} color={C.teal800} width={1040}>
         Stay disciplined about your execution.
       </Caption>
-      <Credit at={tStay + 2.6} />
     </AbsoluteFill>
-  );
-};
-
-const Credit: React.FC<{ at: number }> = ({ at }) => {
-  const frame = useCurrentFrame();
-  const p = ramp(frame, at, 0.8);
-  if (p <= 0) return null;
-  return (
-    <div style={{ position: "absolute", top: 500, width: W, textAlign: "center", opacity: p, fontFamily: FONT, fontWeight: 700, fontSize: 30, letterSpacing: 3, color: C.teal800 }}>
-      THE MAGIC OF THINKING BIG · DAVID J. SCHWARTZ
-    </div>
   );
 };
 
