@@ -1,0 +1,7 @@
+node_modules/
+out/
+_dl/
+# Media is fetched by scripts/fetch-assets.sh (not redistributed in git)
+public/source.mp4
+public/sfx/
+public/music/
