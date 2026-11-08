@@ -3,6 +3,7 @@
 ```bash
 npm install
 npm run fetch-assets        # source clip + Mixkit SFX/music -> public/
+python3 scripts/remove_label.py  # paints out the "2K" screen label -> public/source_clean.mp4
 npm run studio              # live preview
 npm run preview             # 540x960 draft -> out/preview.mp4
 npm run render              # 1080x1920 final -> out/final.mp4

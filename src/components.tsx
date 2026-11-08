@@ -12,7 +12,8 @@ import {
 } from "remotion";
 import { FPS, Region } from "./timeline";
 
-export const SRC = staticFile("source.mp4");
+// source_clean.mp4 = source.mp4 with the dashcam screen "2K" label removed (scripts/remove_label.py)
+export const SRC = staticFile("source_clean.mp4");
 export const YELLOW = "#FFD60A";
 export const FONT = "Montserrat, sans-serif";
 export const DISPLAY = "'Bebas Neue', Montserrat, sans-serif";

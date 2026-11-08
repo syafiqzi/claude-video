@@ -505,12 +505,12 @@ export const SafeZoneGuide: React.FC = () => {
 
 // ---------------- Audio ----------------
 // Mix: voice leads; music bed sits ~15 dB under speech, SFX are accents. Headroom kept below 0 dBFS.
-const VOICE_GAIN = 0.72;
-const SFX_GAIN = 0.55;
+const VOICE_GAIN = 0.9;
+const SFX_GAIN = 0.69;
 const musicVolume = (frame: number) => {
   const t = frame / FPS;
-  const ducked = 0.04;
-  const open = 0.16;
+  const ducked = 0.05;
+  const open = 0.2;
   let dist = Infinity;
   for (const [s, e] of SPEECH) {
     if (t >= s && t <= e) {
