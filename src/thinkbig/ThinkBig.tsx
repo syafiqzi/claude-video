@@ -61,8 +61,8 @@ const musicVolume = (frame: number) => {
     }
     dist = Math.min(dist, Math.abs(t - a), Math.abs(t - b));
   }
-  const ducked = 0.11;
-  const open = 0.24;
+  const ducked = 0.055;
+  const open = 0.12;
   const v = ducked + (open - ducked) * Math.min(1, Math.max(0, dist - 0.1) / 0.5);
   const fadeIn = interpolate(frame, [0, 20], [0.3, 1], clamp);
   const fadeOut = interpolate(frame, [DURATION_FRAMES - 60, DURATION_FRAMES], [1, 0], clamp);
