@@ -456,7 +456,7 @@ export const Scene7: React.FC = () => {
         <br />
         your <span style={{ color: C.sunDeep }}>destination.</span>
       </Caption>
-      <Caption at={tStay} top={420} size={48} weight={700} color={C.teal800}>
+      <Caption at={tStay} top={420} size={43} weight={700} color={C.teal800} width={1040}>
         Stay disciplined about your execution.
       </Caption>
       <Credit at={tStay + 2.6} />
@@ -469,7 +469,7 @@ const Credit: React.FC<{ at: number }> = ({ at }) => {
   const p = ramp(frame, at, 0.8);
   if (p <= 0) return null;
   return (
-    <div style={{ position: "absolute", top: 510, width: W, textAlign: "center", opacity: p, fontFamily: FONT, fontWeight: 700, fontSize: 30, letterSpacing: 3, color: C.teal800 }}>
+    <div style={{ position: "absolute", top: 500, width: W, textAlign: "center", opacity: p, fontFamily: FONT, fontWeight: 700, fontSize: 30, letterSpacing: 3, color: C.teal800 }}>
       THE MAGIC OF THINKING BIG · DAVID J. SCHWARTZ
     </div>
   );
